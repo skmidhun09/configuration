@@ -1,0 +1,34 @@
+server:
+  port: 8065
+spring:
+  application:
+    name: rpp-connector-service
+  data:
+    mongodb:
+      authentication-database: admin
+      database: rpp-messages
+      host: localhost
+      password: Ecssupport09
+      port: 27017
+      username: admin
+logging:
+  level:
+    root: INFO
+    
+rpp:
+  connector:
+    connections:
+      - id: 1
+        host: localhost
+        port: 9000
+        noOfRetries: 2
+        retryInterval: 10000
+        connectionName: Primary Connection
+        order: 1
+      - id: 2
+        host: 192.168.65.116
+        port: 9000
+        noOfRetries: 3
+        retryInterval: 10000
+        connectionName: Secondary Connection
+        order: 2

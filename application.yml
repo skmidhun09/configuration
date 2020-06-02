@@ -1,0 +1,66 @@
+spring:
+  main.banner-mode: off 
+  output.ansi.enabled: ALWAYS
+  zipkin:
+    baseUrl: http://simple-prod-collector.observability.svc.cluster.local:9411
+    sender:
+      type: web
+  sleuth: 
+    sampler: 
+      probability: 1.0
+  kafka:
+    consumer:
+       bootstrap-servers: http://kafka:9092
+       group-id: ${spring.application.name}
+       auto-offset-reset: earliest
+       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+       properties.spring.json.trusted.packages: "*"
+    producer:
+       bootstrap-servers: http://kafka:9092
+       key-serializer: org.apache.kafka.common.serialization.StringSerializer
+       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+   #    buffer-memory: 5120000
+   #    batch-size: 50000
+    #   properties:
+     #    linger: 
+      #     ms: 5
+    #   compression-type: "snappy"
+     #  linger: 1
+    listener:
+      missing-topics-fatal: false
+#  autoconfigure:
+#    exclude: org.springframework.boot.actuate.autoconfigure.metricsKafkaMetricsAutoConfiguration,org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
+logging:
+  pattern:
+    console: "%clr(%d{yy-MM-dd E HH:mm:ss.SSS}){blue} %clr(%-5p) %clr(${PID}){faint} %clr(---){faint} %clr([%8.15t]){cyan} %clr(%-40.40logger{0}){blue} %clr(:){red} %clr(%m){faint}%n"
+  level:
+    root: INFO
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: discovery-service
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://discovery-service:8761/eureka}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+company:
+  contact:
+    name: "ECSFin"
+    url: "www.ecsfin.com"
+    email: "info@ecsfin.com"
+  license: "Copyright © 2020. ECS Fin. All Rights Reserved."
+  termsOfService:
+    url: "https://ecsfin.com/about-us/our-vision/"
+app:
+  service:
+    communication: kafka

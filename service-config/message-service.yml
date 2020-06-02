@@ -1,0 +1,16 @@
+server:
+  port: 8061
+spring:
+  application:
+    name: message-service
+  data:
+    mongodb:
+      authentication-database: admin
+      database: messages
+      host: mongo
+      password: Ecssupport09
+      port: 27017
+      username: admin
+logging:
+  level:
+    root: INFO

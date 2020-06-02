@@ -1,0 +1,16 @@
+server:
+  port: 8070
+spring:
+  application:
+    name: payment-service
+  data:
+    mongodb:
+      authentication-database: admin
+      database: payments
+      host: mongo
+      password: Ecssupport09
+      port: 27017
+      username: admin
+logging:
+  level:
+    root: INFO

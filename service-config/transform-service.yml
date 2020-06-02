@@ -1,0 +1,43 @@
+server:
+  port: 8064
+spring:
+  application:
+    name: transform-service
+logging:
+  level:
+    root: INFO
+    
+message:
+  library:
+    definitions:
+      - id: pacs.008.001.06 
+        deserializer: XMLStaxDeserializer
+        serializer: null
+        transforms:
+          - id: payment
+            mapper: Pacs00800106PaymentMapper
+            serializer: JSONSerializer
+      - id: CT_REQ 
+        deserializer: XMLStaxDeserializer
+        serializer: null
+        transforms:
+          - id: pacs.008.001.06
+            mapper: DoNothingMapper
+            serializer: CtReqPacs00800106Serializer
+          - id: payment
+            mapper: CtReqPaymentMapper
+            serializer: JSONSerializer
+      - id: pacs.002.001.08 
+        deserializer: XMLStaxDeserializer
+        serializer: null
+        transforms:
+          - id: payment-response
+            mapper: Pacs002ResponseMapper
+            serializer: JSONSerializer
+      - id: payment-response 
+        deserializer: PaymentResponseDeserializer
+        serializer: JSONSerializer
+        transforms:
+          - id: pacs.002.001.08
+            mapper: DoNothingMapper
+            serializer: PaymentResponsePacs002Serializer

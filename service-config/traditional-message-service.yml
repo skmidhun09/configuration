@@ -1,0 +1,8 @@
+server:
+  port: 8060
+spring:
+  application:
+    name: traditional-message-service
+logging:
+  level:
+    root: INFO
